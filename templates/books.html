@@ -6,6 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='books_style.css') }}">
 </head>
 <body>
+    <div class="filter-dropdown">
+        <select id="filter-by" onchange="location.href='/books/?filter=' + this.value">
+            <option value="">Сортировка</option>
+            <option value="title">По названию</option>
+            <option value="author">По автору</option>
+            <option value="genre">По жанру</option>
+        </select>
+    </div>
     {% for book in books %}
         <a href="/{{book.title}}">
             <div class="book-show">
@@ -19,5 +27,30 @@
             </div>
         </a>
     {% endfor %}
+
+    <div class="book-show">
+        {% if admin %}
+            <p>Новая книга</p>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <br><br>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required>
+                <br><br>
+                <label for="genre">Genre:</label>
+                <input type="text" id="genre" name=genre" required>
+                <br><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <br><br>
+                <input type="submit" value="Add Book">
+            </form>
+        {% else %}
+            <p>Вы должны быть админом, чтобы добавлять новые книги</p>
+            <a href="{{ url_for('login') }}">Сменить аккаунт</a></li>
+        {% endif %}
+    </div>
 </body>
 </html>

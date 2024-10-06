@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h1>Register</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=30) }}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=40) }}
+    </p>
+    <p>
+        {{ form.confirm_password.label }}<br>
+        {{ form.confirm_password(size=40) }}
+    </p>
+    <p>
+        {{ form.age.label }}<br>
+        {{ form.age(size=3) }}
+    </p>
+    <p><input type="submit" value="Register"></p>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+</form>
+</body>
+</html>
